@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %} Welcome Client {% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">New Items</h2>
+
+    <div class="grid grid-cols-3 gap-3">
+        {% for item in items %}
+            <div>
+                <a href="{% url 'detail' item.id %}">
+                    <div>
+                            <img src="{{ item.image.url }}" class="rounded-t-xl">
+                        </div>
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">Price: {{ item.price }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Categories</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for category in categories %}
+                <div>
+                    <a href="#">
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ category.name }}</h2>
+                            <p class="text-gray-500">{{ category.items.count }} items</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <div class="w-1/2 my-6 mx-auto p-6 bg-gray-100 rounded-xl">
+        <h1 class="mb-6 text-3xl">Login</h1><br/>
+        <form>
+            <div class="mb-3">
+              <input type="text" class="form-control" name="username" placeholder="Username" required>
+            <div class="mb-3">
+              <input type="password" class="form-control" name="password" placeholder="Password" required>
+            </div>
+            <button class="px-6 py-3 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:text-bg-teal-700">Login</button>
+          </form>
+    </div>
+
+{% endif %}
+
+{% endblock %}
